@@ -26,13 +26,39 @@ app.post("/addtodo", (req, res) => {
 
 });
 
-app.put("/edittodo", (req, res) => {
+app.put("/update-todo/:id", (req, res) => {
+	const { id } = req.params;
+	const { todo } = req.body;
 
-})
+	const todoIndex = todos.findIndex(item => item.id === id);
 
-app.delete("/deletetodo", (req, res) => {
+	if (todoIndex === -1) {
+		return res.status(404).json({ message: "Todo not found" });
+	}
 
-})
+	todos[todoIndex].todo = todo;
+
+	res.json({
+		message: "Todo updated successfully",
+		todo: todos[todoIndex]
+	});
+});
+app.delete("/delete-todo/:id", (req, res) => {
+	const { id } = req.params;
+
+	const todoIndex = todos.findIndex(item => item.id === id);
+
+	if (todoIndex === -1) {
+		return res.status(404).json({ message: "Todo not found" });
+	}
+
+	const deletedTodo = todos.splice(todoIndex, 1);
+
+	res.json({
+		message: "Todo deleted successfully",
+		todo: deletedTodo[0]
+	});
+});
 
 app.get("/gettodos", (req, res) => {
 
