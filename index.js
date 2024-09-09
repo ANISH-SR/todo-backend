@@ -1,5 +1,4 @@
-//Todo App storing storing info in todos.
-
+//Assignment #1 - Trying to code a todo app and store data into the array
 const express = require("express");
 const app = express();
 app.use(express.json());
